@@ -21,9 +21,13 @@ app.get("/jugadores/:dorsal", (req, res)=>{
 
 app.post("/jugadores", (req, res)=>{
     const {nombre, apellido, dni} = req.body;
-    res.status(201).json({
-        message: `El nuevo jugador ${nombre} ${apellido} con DNI:${dni} fue inscripto correctamente`
-    })
+    if(!nombre || !apellido || !dni) {
+        return res.status(400).send("Datos insuficientes")
+    } else {
+        res.status(201).json({
+            message: `El nuevo jugador ${nombre} ${apellido} con DNI:${dni} fue inscripto correctamente`
+        })
+    }
 })
 
 app.listen(port, ()=>{
